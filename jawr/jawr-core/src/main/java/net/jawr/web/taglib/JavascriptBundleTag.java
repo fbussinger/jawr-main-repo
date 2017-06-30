@@ -42,7 +42,7 @@ public class JavascriptBundleTag extends AbstractResourceBundleTag {
 
 	/** The crossorigin attribute */
 	protected String crossorigin;
-
+	
 	/**
 	 * Sets the type attribute
 	 * 

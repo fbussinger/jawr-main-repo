@@ -235,6 +235,9 @@ public class JawrConstant {
 
 	/** The name of the crossorigin attribute */
 	public static final String CROSSORIGIN_ATTR = "crossorigin";
+	
+	/** The name of the integrity attribute */
+	public static final String INTEGRITY_ATTR = "integrity";
 
 	/** Max file size jawr property name */
 	public static final String BASE64_MAX_IMG_FILE_SIZE = "jawr.css.postprocessor.base64ImageEncoder.maxFileLength";

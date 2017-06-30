@@ -26,6 +26,7 @@ import net.jawr.web.resource.bundle.JoinableResourceBundle;
 import net.jawr.web.resource.bundle.iterator.ConditionalCommentCallbackHandler;
 import net.jawr.web.resource.bundle.iterator.ResourceBundlePathsIterator;
 import net.jawr.web.resource.bundle.lifecycle.BundlingProcessLifeCycleListener;
+import net.jawr.web.resource.bundle.renderer.integrity.ResourceIntegrityProvider;
 import net.jawr.web.resource.watcher.ResourceWatcher;
 
 /**
@@ -37,7 +38,7 @@ import net.jawr.web.resource.watcher.ResourceWatcher;
  * @author Ibrahim Chaehoi
  *
  */
-public interface ResourceBundlesHandler {
+public interface ResourceBundlesHandler extends ResourceIntegrityProvider {
 
 	/**
 	 * Returns the managed resource type
@@ -275,5 +276,4 @@ public interface ResourceBundlesHandler {
 	 *            the listeners to set
 	 */
 	public void setBundlingProcessLifeCycleListeners(List<BundlingProcessLifeCycleListener> listeners);
-
 }

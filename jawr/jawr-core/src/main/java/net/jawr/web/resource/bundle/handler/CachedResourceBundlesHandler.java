@@ -49,6 +49,7 @@ import net.jawr.web.resource.watcher.ResourceWatcher;
  * 
  */
 public class CachedResourceBundlesHandler implements ResourceBundlesHandler {
+  private static final String INTEGRITY_CACHE_PREFIX = "INTEGRITY.";
 
 	/** The prefix for text element in cache */
 	private static final String TEXT_CACHE_PREFIX = "TEXT.";
@@ -412,4 +413,15 @@ public class CachedResourceBundlesHandler implements ResourceBundlesHandler {
 	public void setBundlingProcessLifeCycleListeners(List<BundlingProcessLifeCycleListener> listeners) {
 		this.rsHandler.setBundlingProcessLifeCycleListeners(listeners);
 	}
+
+  @Override
+  public String getResourceHash(String bundlePath) {
+    final String key = INTEGRITY_CACHE_PREFIX + bundlePath;
+    String hash = (String) this.cacheMgr.get(key);
+    if (hash == null) {
+      hash = this.rsHandler.getResourceHash(bundlePath);
+      this.cacheMgr.put(key, hash);
+    }
+    return hash;
+  }
 }

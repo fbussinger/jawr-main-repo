@@ -57,10 +57,10 @@ public class CSSHTMLBundleLinkRenderer extends AbstractBundleLinkRenderer implem
 	private static final String PRE_TAG_ALTERNATE = "<link rel=\"alternate stylesheet\" type=\"text/css\" media=\"";
 
 	/** The Title prefix */
-	private static final String TITLE_PREFIX_TAG = "\" title=\"";
+	private static final String TITLE_PREFIX_TAG = " title=\"";
 
 	/** The HREF prefix */
-	private static final String MID_TAG = "\" href=\"";
+	private static final String MID_TAG = " href=\"";
 
 	/** The end tag */
 	private static final String POST_TAG = "\" />\n";
@@ -316,23 +316,7 @@ public class CSSHTMLBundleLinkRenderer extends AbstractBundleLinkRenderer implem
 	 */
 	@Override
 	protected String renderLink(String fullPath) {
-
-		StringBuilder sb = new StringBuilder();
-
-		// displayAlternateStyles
-		if (alternate) {
-			sb.append(PRE_TAG_ALTERNATE);
-		} else {
-			sb.append(PRE_TAG);
-		}
-
-		sb.append(media);
-		if (StringUtils.isNotEmpty(title)) {
-			sb.append(TITLE_PREFIX_TAG).append(title);
-		}
-		sb.append(MID_TAG).append(fullPath).append(closingFlavor);
-
-		return sb.toString();
+	  return this.renderLink(fullPath, org.apache.commons.lang3.StringUtils.EMPTY);
 	}
 
 	/**
@@ -357,5 +341,29 @@ public class CSSHTMLBundleLinkRenderer extends AbstractBundleLinkRenderer implem
 				+ bundlePath.getPath();
 		path = PathNormalizer.createGenerationPath(path, bundler.getConfig().getGeneratorRegistry(), "d=" + random);
 		out.write(createBundleLink(path, null, null, ctx.getContextPath(), ctx.isSslRequest()));
+	}
+
+	@Override
+	protected String renderLink(String fullPath, String integrity) {
+    StringBuilder sb = new StringBuilder();
+
+    // displayAlternateStyles
+    if (alternate) {
+      sb.append(PRE_TAG_ALTERNATE);
+    } else {
+      sb.append(PRE_TAG);
+    }
+
+    sb.append(media).append('"');
+    if (StringUtils.isNotEmpty(title)) {
+      sb.append(TITLE_PREFIX_TAG).append(title).append('"');
+    }
+    
+    this.generateIntegrityAttribute(sb, integrity);
+    
+    sb.append(MID_TAG).append(fullPath).append(closingFlavor);
+
+    return sb.toString();
+  
 	}
 }

@@ -45,7 +45,7 @@ public abstract class AbstractResourceBundleTag extends TagSupport {
 
 	/** The flag to use random param */
 	protected String useRandomParam = null;
-
+  
 	/*
 	 * (non-Javadoc)
 	 * 

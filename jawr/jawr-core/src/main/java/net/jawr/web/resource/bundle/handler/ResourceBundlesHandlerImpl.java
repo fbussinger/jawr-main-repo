@@ -70,6 +70,8 @@ import net.jawr.web.resource.bundle.lifecycle.BundlingProcessLifeCycleListener;
 import net.jawr.web.resource.bundle.postprocess.AbstractChainedResourceBundlePostProcessor;
 import net.jawr.web.resource.bundle.postprocess.BundleProcessingStatus;
 import net.jawr.web.resource.bundle.postprocess.ResourceBundlePostProcessor;
+import net.jawr.web.resource.bundle.renderer.integrity.IntegrityHelper;
+import net.jawr.web.resource.bundle.renderer.integrity.IntegrityHelperFactory;
 import net.jawr.web.resource.bundle.sorting.GlobalResourceBundleComparator;
 import net.jawr.web.resource.bundle.variant.VariantSet;
 import net.jawr.web.resource.bundle.variant.VariantUtils;
@@ -165,6 +167,8 @@ public class ResourceBundlesHandlerImpl implements ResourceBundlesHandler {
 
 	/** The flag indicating if we need to search for variant in post process */
 	private boolean needToSearchForVariantInPostProcess;
+	
+	private final IntegrityHelper integrityHelper;
 
 	/**
 	 * Build a ResourceBundlesHandler.
@@ -239,6 +243,7 @@ public class ResourceBundlesHandlerImpl implements ResourceBundlesHandler {
 				.getBundlingProcessLifeCycleListeners();
 		lifeCycleListeners.addAll(generatorLifeCycleListeners);
 
+		this.integrityHelper = IntegrityHelperFactory.create(this);
 	}
 
 	/*
@@ -1585,4 +1590,8 @@ public class ResourceBundlesHandlerImpl implements ResourceBundlesHandler {
 		this.lifeCycleListeners.addAll(listeners);
 	}
 
+  @Override
+  public String getResourceHash(final String bundlePath) {
+    return this.integrityHelper.generate(bundlePath);
+  }
 }

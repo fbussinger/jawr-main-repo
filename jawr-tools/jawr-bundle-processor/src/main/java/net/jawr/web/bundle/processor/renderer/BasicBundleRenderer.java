@@ -106,5 +106,8 @@ public class BasicBundleRenderer extends AbstractBundleLinkRenderer {
     	return renderLink(fullPath);
     }
 
-	
+	@Override
+	protected String renderLink(String fullPath, String integrity) {
+		return this.renderLink(fullPath);
+	}
 }

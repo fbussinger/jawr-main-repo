@@ -54,7 +54,7 @@ public class JavascriptHTMLBundleLinkRenderer extends AbstractBundleLinkRenderer
 
 	/** The end tag */
 	private static final String POST_TAG = " ></script>\n";
-
+	
 	/** The type attribute */
 	private String type;
 
@@ -66,7 +66,7 @@ public class JavascriptHTMLBundleLinkRenderer extends AbstractBundleLinkRenderer
 
 	/** The crossorigin attribute */
 	private String crossorigin;
-
+	
 	/** A flag indicating if we are rendering the global links */
 	private boolean renderGlobalLinks;
 
@@ -155,9 +155,13 @@ public class JavascriptHTMLBundleLinkRenderer extends AbstractBundleLinkRenderer
 	 */
 	@Override
 	protected String renderLink(String fullPath) {
+	  return this.renderLink(fullPath, org.apache.commons.lang3.StringUtils.EMPTY);
+	}
 
+	@Override
+	protected String renderLink(String fullPath, String integrity) {
 		// if(bundler.get)
-		StringBuffer sb = new StringBuffer(PRE_TAG).append(type).append(TYPE_END_ATTRIBUTE).append(SRC_START_ATTRIBUTE);
+		StringBuilder sb = new StringBuilder(PRE_TAG).append(type).append(TYPE_END_ATTRIBUTE).append(SRC_START_ATTRIBUTE);
 		sb.append(fullPath);
 		sb.append(SRC_END_ATTRIBUTE);
 		if (async && !renderGlobalLinks) {
@@ -169,8 +173,10 @@ public class JavascriptHTMLBundleLinkRenderer extends AbstractBundleLinkRenderer
 		if (crossorigin != null && !renderGlobalLinks) {
 			sb.append(' ').append(JawrConstant.CROSSORIGIN_ATTR).append("=\"").append(crossorigin).append("\"");
 		}
+		
+		this.generateIntegrityAttribute(sb, integrity);
+		
 		sb.append(POST_TAG);
 		return sb.toString();
 	}
-
 }

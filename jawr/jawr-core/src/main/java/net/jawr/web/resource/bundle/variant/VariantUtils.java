@@ -46,7 +46,7 @@ public class VariantUtils {
 
 		List<Map<String, String>> variants = new ArrayList<>();
 		if (variantSets != null) {
-			for (Entry<String, Collection<String>> variantEntry : new TreeMap<>(variantSets).entrySet()) {
+			for (Entry<String, ? extends Collection<String>> variantEntry : new TreeMap<>(variantSets).entrySet()) {
 				String variantType = variantEntry.getKey();
 				Collection<String> variantList = variantEntry.getValue();
 				if (variants.isEmpty()) {

@@ -27,23 +27,6 @@ import net.jawr.web.resource.bundle.renderer.image.ImgRenderer;
  */
 public class RendererFactory {
 
-	/**
-	 * Returns the JS Bundle renderer
-	 * 
-	 * @param bundler
-	 *            the ResourceBundlesHandler
-	 * @param type
-	 *            the script type attribute
-	 * @param useRandomParam
-	 *            the flag indicating if it should use the random param
-	 * @param async
-	 *            the flag indicating the value of the async attribute
-	 * @param defer
-	 *            the flag indicating the value of the deferred attribute
-	 * @param crossorigin
-	 *            the value of the crossorigin attribute
-	 * @return the JS Bundle renderer
-	 */
 	public final static JsBundleLinkRenderer getJsBundleRenderer(
 			ResourceBundlesHandler bundler, String type, Boolean useRandomParam,
 			Boolean async, Boolean defer, String crossorigin) {
